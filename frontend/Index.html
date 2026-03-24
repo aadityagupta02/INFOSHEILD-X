@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>INFOSHIELD-X</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  
+
+</head>
+<body>
+
+  <section class="hero">
+
+    <div class="hero-left">
+      <h1 class="logo">INFOSHIELD-X</h1>
+      <h2 class="subtitle">AI-Powered Digital Truth Verification Platform</h2>
+
+      <p class="description">
+        Detect fake news, AI-generated text, and manipulated content instantly
+        using advanced artificial intelligence.
+      </p>
+
+      <!-- Detection UI (WORKING PART) -->
+     <button onclick="openModal()">Start Detection</button>
+
+    </div>
+
+    <div class="hero-right">
+      <div class="ai-orb"></div>
+    </div>
+
+  </section>
+
+  
+<div class="modal" id="detectModal">
+  <div class="modal-content">
+    <h2>AI Text Detection</h2>
+
+    <textarea id="textInput" placeholder="Paste text to verify..."></textarea>
+
+   <button onclick="detectText()">Analyze</button>
+
+    <div id="result"></div>
+    <div id="explanation" class="explanation"></div>
+    <div class="confidence-bar">
+  <div class="confidence-fill" id="confidenceFill"></div>
+  <div class="explanation" id="explanation"></div>
+
+</div>
+
+    <span class="close" onclick="closeModal()">×</span>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
