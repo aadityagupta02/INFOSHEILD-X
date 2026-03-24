@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>INFOSHIELD-X</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+  body {
+  margin: 0;
+  background: #0B0F1A;
+  color: #E5E7EB;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+  .hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100vh;
+    padding: 80px;
+    box-sizing: border-box;
+  }
+
+  .hero-left {
+    max-width: 520px;
+  }
+
+  .logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 56px;
+  font-weight: 700;   /* or 800 if your Figma uses extra bold */
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-transform: uppercase;
+  text-shadow: 0 0 28px rgba(0,229,255,0.45);
+}
+
+
+.subtitle {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #B8C1EC;
+  margin: 14px 0 22px;
+}
+
+.description {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #A5B4FC;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+  textarea {
+    width: 100%;
+    height: 130px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(139,92,246,0.6);
+    border-radius: 14px;
+    padding: 16px;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    backdrop-filter: blur(10px);
+  }
+
+  textarea:focus {
+    border-color: #00E5FF;
+    box-shadow: 0 0 15px rgba(0,229,255,0.4);
+  }
+  
+
+  button {
+    margin-top: 20px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #00E5FF, #8B5CF6);
+    color: #0B0F1A;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(0,229,255,0.5);
+    transition: transform 0.2s ease;
+  }
+
+  button:hover {
+    transform: translateY(-2px);
+  }
+
+  #result {
+    margin-top: 24px;
+    padding: 18px;
+    border-radius: 14px;
+    display: none;
+    font-size: 18px;
+  }
+
+  .real {
+    border: 1px solid #00FF9C;
+    color: #00FF9C;
+    box-shadow: 0 0 20px rgba(0,255,156,0.4);
+  }
+
+  .fake {
+    border: 1px solid #FF4C4C;
+    color: #FF4C4C;
+    box-shadow: 0 0 20px rgba(255,76,76,0.4);
+  }
+
+  .loading {
+    color: #00E5FF;
+    font-style: italic;
+  }
+
+  .hero-right {
+    width: 400px;
+    height: 400px;
+    position: relative;
+  }
+
+  .ai-orb {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #00E5FF, #8B5CF6, transparent 70%);
+    filter: blur(20px);
+    box-shadow: 0 0 80px rgba(0,229,255,0.5);
+    margin: auto;
+  }
+
+  .modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 10, 20, 0.8);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  width: 480px;
+  background: #0B0F1A;
+  border-radius: 18px;
+  padding: 30px;
+  border: 1px solid rgba(139,92,246,0.5);
+  box-shadow: 0 0 50px rgba(0,229,255,0.3);
+  position: relative;
+
+  /* animation */
+  transform: scale(0.95);
+  opacity: 0;
+  transition: all 0.25s ease;
+}
+
+.modal.show .modal-content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+
+.modal-content h2 {
+  margin-top: 0;
+  color: #00E5FF;
+}
+
+.close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 26px;
+  cursor: pointer;
+  color: #A5B4FC;
+}
+.confidence-bar {
+  margin-top: 16px;
+  width: 100%;
+  height: 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  display: none;
+}
+
+.confidence-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #00E5FF, #8B5CF6);
+  transition: width 0.4s ease;
+}
+.explanation {
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: yellow;
+  border: 1px solid red;
+}
+
+</style>
+
+</head>
+<body>
+
+  <section class="hero">
+
+    <div class="hero-left">
+      <h1 class="logo">INFOSHIELD-X</h1>
+      <h2 class="subtitle">AI-Powered Digital Truth Verification Platform</h2>
+
+      <p class="description">
+        Detect fake news, AI-generated text, and manipulated content instantly
+        using advanced artificial intelligence.
+      </p>
+
+      <!-- Detection UI (WORKING PART) -->
+     <button onclick="openModal()">Start Detection</button>
+
+    </div>
+
+    <div class="hero-right">
+      <div class="ai-orb"></div>
+    </div>
+
+  </section>
+
+  <script>
+  async function detectText() {
+    const text = document.getElementById("textInput").value;
+    const resultDiv = document.getElementById("result");
+
+    resultDiv.style.display = "block";
+    resultDiv.className = "loading";
+    resultDiv.innerText = "🔍 Analyzing content...";
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/detect-text", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ text: text })
+      });
+
+      const data = await response.json();
+
+// confidence bar logic
+const bar = document.querySelector(".confidence-bar");
+const fill = document.getElementById("confidenceFill");
+
+bar.style.display = "block";
+fill.style.width = data.confidence_percent + "%";
+
+// 🔴 EXPLANATION LOGIC MUST BE HERE
+const explanation = document.getElementById("explanation");
+
+if (data.result.includes("FAKE")) {
+  explanation.innerText =
+    "This content shows patterns commonly found in misleading or AI-generated text, such as urgency, promotional language, or click-driven phrases.";
+} else {
+  explanation.innerText =
+    "This content does not strongly match known patterns of misinformation or AI-generated manipulation.";
+}
+
+      if (data.result.includes("REAL")) {
+        resultDiv.className = "real";
+      } else {
+        resultDiv.className = "fake";
+      }
+
+      resultDiv.innerText =
+        data.result + " • Confidence: " + data.confidence_percent + "%";
+
+    } catch (error) {
+      resultDiv.className = "fake";
+      resultDiv.innerText = "❌ Error connecting to backend.";
+    }
+  }
+  function openModal() {
+  document.getElementById("detectModal").classList.add("show");
+}
+
+function closeModal() {
+  document.getElementById("detectModal").classList.remove("show");
+}
+
+</script>
+<div class="modal" id="detectModal">
+  <div class="modal-content">
+    <h2>AI Text Detection</h2>
+
+    <textarea id="textInput" placeholder="Paste text to verify..."></textarea>
+
+    <button onclick="detectText()">Analyze</button>
+
+    <div id="result"></div>
+    <div class="confidence-bar">
+  <div class="confidence-fill" id="confidenceFill"></div>
+  <div class="explanation" id="explanation"></div>
+
+</div>
+
+    <span class="close" onclick="closeModal()">×</span>
+  </div>
+</div>
+
+</body>
+</html>
