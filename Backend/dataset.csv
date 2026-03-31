@@ -1,4 +1,4 @@
-,text,label
+text,label
 ,Aprender programación en Python es fácil . Primero debes entender los conceptos básicos como variables y funciones . Luego aprende loops y condiciones . Con práctica mejorarás . Hay muchos recursos en línea .,0
 ,Error: 400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions,1
 ,Error: 404 Client Error: Not Found for url: https://api.groq.com/openai/v1/chat/completions,1
